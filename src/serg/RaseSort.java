@@ -1,5 +1,6 @@
 package serg;
 
+import serg.runnable.SeparateThread;
 import serg.sort_variants.BubbleSort;
 
 import java.util.*;
@@ -17,17 +18,9 @@ public class RaseSort {
         List<Integer> initialList = getListByRandomWithoutDuplicates();
         //List<Integer> initialList = getListByMix();
 
-        System.out.println("Unsorted:"+initialList);
-
-        List<Integer> bubleSortedList = new BubbleSort(new ArrayList<>(initialList)).sort();
-
-        System.out.println("Sorted:"+bubleSortedList);
+        SeparateThread threadBubleSort = new SeparateThread(new BubbleSort(new ArrayList<>(initialList)));
+        threadBubleSort.run();
 
     }
-
-
-
-
-
 
 }

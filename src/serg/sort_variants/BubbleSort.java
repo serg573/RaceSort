@@ -7,7 +7,7 @@ import static serg.UnsortedArray.ARRAY_SIZE;
 /**
  * Created by Sergey Vasiliev on 7/9/17.
  */
-public class BubbleSort {
+public class BubbleSort implements SortVariant {
 
     private List<Integer> list;
 
@@ -15,6 +15,7 @@ public class BubbleSort {
         this.list = list;
     }
 
+    @Override
     public List<Integer> sort() {
         for (int i=0; i<ARRAY_SIZE; i++) {
             for (int j=0; j<ARRAY_SIZE-1; j++){
@@ -26,5 +27,10 @@ public class BubbleSort {
             }
         }
         return list;
+    }
+
+    @Override
+    public String toString() {
+        return list.toString();
     }
 }
