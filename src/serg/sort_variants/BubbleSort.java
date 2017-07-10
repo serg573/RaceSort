@@ -2,7 +2,7 @@ package serg.sort_variants;
 
 import java.util.List;
 
-import static serg.RaseSort.ARRAY_SIZE;
+import static serg.UnsortedArray.ARRAY_SIZE;
 
 /**
  * Created by Sergey Vasiliev on 7/9/17.
