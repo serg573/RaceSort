@@ -11,6 +11,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import static serg.UnsortedArray.getListByRandomWithoutDuplicates;
+import static serg.UnsortedArray.printCutList;
 
 /**
  * Created by Sergey Vasiliev on 7/8/17.
@@ -20,31 +21,28 @@ public class RaseSort {
 
     public static void main(String[] args) {
 
-        //Пора добавлять подсчет времени выполнения, возможно возвращать их в качестве результата и потом сравнивать программно.
+        //Обрезать вывод Листов во время сортировки
+        //Сделать автоСортировку коллекцией в Листе Threads
         //Добавлять новые алгоритмы сортировки
 
         //List<Integer> initialList = getListByRandomeWithDuplicates();
         List<Integer> initialList = getListByRandomWithoutDuplicates();
         //List<Integer> initialList = getListByMix();
 
-        System.out.println("Unsorted: "+initialList+"\n");
-
-//        SeparateThread threadBubleSort = new SeparateThread(new BubbleSort(new ArrayList<>(initialList)));
-//        threadBubleSort.run();
-//
-//        SeparateThread collectionsSort = new SeparateThread(new CollectionsSort(new ArrayList<>(initialList)));
-//        collectionsSort.run();
-//
-//        SeparateThread quickSort = new SeparateThread(new QuickSort(new ArrayList<>(initialList)));
-//        quickSort.run();
-
+        System.out.println("Array size: "+initialList.size());
+        System.out.println("Unsorted: "+printCutList(initialList)+"\n");
 
         CountDownLatch countDownLatch = new CountDownLatch(3);
-        ExecutorService executorService = Executors.newFixedThreadPool(1);
+        ExecutorService executorService = Executors.newFixedThreadPool(2);
+        
+        List<SeparateThread> listOfThreads = new LinkedList<>();
+        listOfThreads.add(new SeparateThread(countDownLatch, new BubbleSort(new ArrayList<>(initialList))));
+        listOfThreads.add(new SeparateThread(countDownLatch, new CollectionsSort(new ArrayList<>(initialList))));
+        listOfThreads.add(new SeparateThread(countDownLatch, new QuickSort(new ArrayList<>(initialList))));
 
-        executorService.execute(new SeparateThread(countDownLatch, new BubbleSort(new ArrayList<>(initialList))));
-        executorService.execute(new SeparateThread(countDownLatch, new CollectionsSort(new ArrayList<>(initialList))));
-        executorService.execute(new SeparateThread(countDownLatch, new QuickSort(new ArrayList<>(initialList))));
+        for (SeparateThread thred : listOfThreads) {
+            executorService.execute(thred);
+        }
 
         try {
             countDownLatch.await();
@@ -53,6 +51,11 @@ public class RaseSort {
         }
 
         executorService.shutdown();
+        System.out.println("");
+
+        for (SeparateThread thred : listOfThreads) {
+            System.out.println(thred.GetClassNameWithIndents()+" - SortTime "+thred.getSortTime());
+        }
 
     }
 

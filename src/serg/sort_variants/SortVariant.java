@@ -9,4 +9,5 @@ public interface SortVariant {
     List<Integer> sort();
     List<Integer> sortWithTimeMeasurement();
     String toString();
+    long getSortTime();
 }

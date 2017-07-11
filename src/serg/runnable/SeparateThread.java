@@ -28,7 +28,7 @@ public class SeparateThread implements Runnable {
 
     }
 
-    private String GetClassNameWithIndents() {
+    public String GetClassNameWithIndents() {
 
         final int size = 15;
         StringBuilder strRez = new StringBuilder(size);
@@ -37,5 +37,9 @@ public class SeparateThread implements Runnable {
         while (strRez.length() < size) strRez.append(" ");
 
         return strRez.toString();
+    }
+
+    public long getSortTime() {
+        return sortVariant.getSortTime();
     }
 }
