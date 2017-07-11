@@ -18,7 +18,7 @@ public class SeparateThread implements Runnable {
 
         System.out.println(sortVariant.getClass().getSimpleName()+" - Unsorted: "+sortVariant);
 
-        sortVariant.sort();
+        sortVariant.sortWithTimeMeasurement();
 
         System.out.println(sortVariant.getClass().getSimpleName()+" - Sorted: "+sortVariant);
 

@@ -7,16 +7,15 @@ import static serg.UnsortedArray.ARRAY_SIZE;
 /**
  * Created by Sergey Vasiliev on 7/9/17.
  */
-public class BubbleSort implements SortVariant {
-
-    private List<Integer> list;
+public class BubbleSort extends AbstractVariant implements SortVariant {
 
     public BubbleSort(List<Integer> list) {
-        this.list = list;
+        super(list);
     }
 
     @Override
     public List<Integer> sort() {
+        sortTime = 0;
         for (int i=0; i<ARRAY_SIZE; i++) {
             for (int j=0; j<ARRAY_SIZE-1; j++){
                 if (list.get(j)>list.get(j+1)) {
@@ -29,8 +28,4 @@ public class BubbleSort implements SortVariant {
         return list;
     }
 
-    @Override
-    public String toString() {
-        return list.toString();
-    }
 }
