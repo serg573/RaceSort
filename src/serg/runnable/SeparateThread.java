@@ -2,15 +2,19 @@ package serg.runnable;
 
 import serg.sort_variants.SortVariant;
 
+import java.util.concurrent.CountDownLatch;
+
 /**
  * Created by Sergey Vasiliev on 7/10/17.
  */
 public class SeparateThread implements Runnable {
 
     private SortVariant sortVariant;
+    private CountDownLatch countDownLatch;
 
-    public SeparateThread(SortVariant sortVariant) {
+    public SeparateThread(CountDownLatch countDownLatch, SortVariant sortVariant) {
         this.sortVariant = sortVariant;
+        this.countDownLatch = countDownLatch;
     }
 
     @Override
@@ -19,6 +23,8 @@ public class SeparateThread implements Runnable {
         sortVariant.sortWithTimeMeasurement();
 
         System.out.println(GetClassNameWithIndents()+" - "+sortVariant);
+
+        countDownLatch.countDown();
 
     }
 

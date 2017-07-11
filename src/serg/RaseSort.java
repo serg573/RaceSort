@@ -6,6 +6,9 @@ import serg.sort_variants.CollectionsSort;
 import serg.sort_variants.QuickSort;
 
 import java.util.*;
+import java.util.concurrent.CountDownLatch;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import static serg.UnsortedArray.getListByRandomWithoutDuplicates;
 
@@ -26,14 +29,30 @@ public class RaseSort {
 
         System.out.println("Unsorted: "+initialList+"\n");
 
-        SeparateThread threadBubleSort = new SeparateThread(new BubbleSort(new ArrayList<>(initialList)));
-        threadBubleSort.run();
+//        SeparateThread threadBubleSort = new SeparateThread(new BubbleSort(new ArrayList<>(initialList)));
+//        threadBubleSort.run();
+//
+//        SeparateThread collectionsSort = new SeparateThread(new CollectionsSort(new ArrayList<>(initialList)));
+//        collectionsSort.run();
+//
+//        SeparateThread quickSort = new SeparateThread(new QuickSort(new ArrayList<>(initialList)));
+//        quickSort.run();
 
-        SeparateThread collectionsSort = new SeparateThread(new CollectionsSort(new ArrayList<>(initialList)));
-        collectionsSort.run();
 
-        SeparateThread quickSort = new SeparateThread(new QuickSort(new ArrayList<>(initialList)));
-        quickSort.run();
+        CountDownLatch countDownLatch = new CountDownLatch(3);
+        ExecutorService executorService = Executors.newFixedThreadPool(1);
+
+        executorService.execute(new SeparateThread(countDownLatch, new BubbleSort(new ArrayList<>(initialList))));
+        executorService.execute(new SeparateThread(countDownLatch, new CollectionsSort(new ArrayList<>(initialList))));
+        executorService.execute(new SeparateThread(countDownLatch, new QuickSort(new ArrayList<>(initialList))));
+
+        try {
+            countDownLatch.await();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
+        executorService.shutdown();
 
     }
 
