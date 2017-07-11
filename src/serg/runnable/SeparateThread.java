@@ -16,11 +16,20 @@ public class SeparateThread implements Runnable {
     @Override
     public void run() {
 
-        System.out.println(sortVariant.getClass().getSimpleName()+" - Unsorted: "+sortVariant);
-
         sortVariant.sortWithTimeMeasurement();
 
-        System.out.println(sortVariant.getClass().getSimpleName()+" - Sorted: "+sortVariant);
+        System.out.println(GetClassNameWithIndents()+" - "+sortVariant);
 
+    }
+
+    private String GetClassNameWithIndents() {
+
+        final int size = 15;
+        StringBuilder strRez = new StringBuilder(size);
+
+        strRez.append(sortVariant.getClass().getSimpleName());
+        while (strRez.length() < size) strRez.append(" ");
+
+        return strRez.toString();
     }
 }

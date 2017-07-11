@@ -24,6 +24,8 @@ public class RaseSort {
         List<Integer> initialList = getListByRandomWithoutDuplicates();
         //List<Integer> initialList = getListByMix();
 
+        System.out.println("Unsorted: "+initialList+"\n");
+
         SeparateThread threadBubleSort = new SeparateThread(new BubbleSort(new ArrayList<>(initialList)));
         threadBubleSort.run();
 
