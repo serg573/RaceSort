@@ -38,7 +38,7 @@ abstract class AbstractVariant implements SortVariant {
         if (sortTime == 0) {
             return list.toString();
         } else {
-            return "SortTime "+sortTime+" Nano seconds, "+printCutList(list);
+            return "SortTime "+sortTime+" Nano seconds, "+printCutList();
         }
     }
 
@@ -48,7 +48,13 @@ abstract class AbstractVariant implements SortVariant {
         list.set(j, temp);
     }
 
+    @Override
     public long getSortTime() {
         return sortTime;
+    }
+
+    @Override
+    public String printCutList() {
+        return serg.UnsortedArray.printCutList(list);
     }
 }

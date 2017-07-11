@@ -10,4 +10,5 @@ public interface SortVariant {
     List<Integer> sortWithTimeMeasurement();
     String toString();
     long getSortTime();
+    String printCutList();
 }

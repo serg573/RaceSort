@@ -22,7 +22,7 @@ public class SeparateThread implements Runnable {
 
         sortVariant.sortWithTimeMeasurement();
 
-        System.out.println(GetClassNameWithIndents()+" - "+sortVariant);
+        //System.out.println(GetClassNameWithIndents()+" - "+sortVariant);
 
         countDownLatch.countDown();
 
@@ -42,4 +42,20 @@ public class SeparateThread implements Runnable {
     public long getSortTime() {
         return sortVariant.getSortTime();
     }
+
+    public String printCutList() {
+        return sortVariant.printCutList();
+    }
+
+    public int compareTo(SeparateThread th2) {
+        long ii = getSortTime() - th2.getSortTime();
+        if (ii > 1) {
+            return 1;
+        } else if (ii < 0) {
+            return -1;
+        } else {
+            return 0;
+        }
+    }
+
 }

@@ -21,7 +21,6 @@ public class RaseSort {
 
     public static void main(String[] args) {
 
-        //Обрезать вывод Листов во время сортировки
         //Сделать автоСортировку коллекцией в Листе Threads
         //Добавлять новые алгоритмы сортировки
 
@@ -34,7 +33,7 @@ public class RaseSort {
 
         CountDownLatch countDownLatch = new CountDownLatch(3);
         ExecutorService executorService = Executors.newFixedThreadPool(2);
-        
+
         List<SeparateThread> listOfThreads = new LinkedList<>();
         listOfThreads.add(new SeparateThread(countDownLatch, new BubbleSort(new ArrayList<>(initialList))));
         listOfThreads.add(new SeparateThread(countDownLatch, new CollectionsSort(new ArrayList<>(initialList))));
@@ -51,10 +50,15 @@ public class RaseSort {
         }
 
         executorService.shutdown();
-        System.out.println("");
 
-        for (SeparateThread thred : listOfThreads) {
-            System.out.println(thred.GetClassNameWithIndents()+" - SortTime "+thred.getSortTime());
+        Comparator<SeparateThread> comparator = (SeparateThread th1, SeparateThread th2) -> (th1.compareTo(th2));
+        SortedSet<SeparateThread> sortedSet = new TreeSet<>(comparator);
+        sortedSet.addAll(listOfThreads);
+
+        System.out.println("Results sorted by time of sorting:");
+
+        for (SeparateThread thred : sortedSet) {
+            System.out.println(thred.GetClassNameWithIndents()+" - SortTime "+thred.getSortTime()+" Nano seconds, "+thred.printCutList());
         }
 
     }
