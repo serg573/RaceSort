@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class UnsortedArray {
 
-    public static final int ARRAY_SIZE = 20;
+    public static final int ARRAY_SIZE = 7;
 
     public static List<Integer> getListByRandomeWithDuplicates() {
         List<Integer> list = new ArrayList<>(ARRAY_SIZE);

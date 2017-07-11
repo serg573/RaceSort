@@ -4,6 +4,7 @@ import java.util.List;
 
 /**
  * Created by Sergey Vasiliev on 7/10/17.
+ * sdlkfjsdlkfj
  */
 abstract class AbstractVariant implements SortVariant {
 
@@ -37,5 +38,11 @@ abstract class AbstractVariant implements SortVariant {
         } else {
             return "SortTime "+sortTime+" Nano seconds, "+list.toString();
         }
+    }
+
+    void swap(int i, int j) {
+        int temp = list.get(i);
+        list.set(i, list.get(j));
+        list.set(j, temp);
     }
 }
